@@ -1,6 +1,6 @@
-# Fwitter File Structure
+# Sinatra File Structure
 
-Here's the file structure we'll be using to build out our own version of Twitter - "Fwitter". 
+Here's the file structure we'll be using to build out your sinatra apps. 
 For each file and directory, think about the following questions:
 
 + What are the responsibilities of this file?
