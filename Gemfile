@@ -1,9 +1,15 @@
-# A sample Gemfile
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "sinatra"
+gem 'twilio-ruby'
+gem 'sinatra'
+gem 'rake'
+gem 'nokogiri'
+gem "sinatra-activerecord"
+gem "activerecord"
 
 group :development do
   gem "pry"
+  gem "tux"
+  gem "sqlite3"
   gem "shotgun"
 end
