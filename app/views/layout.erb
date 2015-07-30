@@ -1,25 +1,25 @@
 <!doctype html>
 <html>
   <head>
-    <title> TBD </title>
+    <title> Goodmorning </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body> 
+      <div class="footer">
+        <h4><a href="/">Home</a> | <a href="/pref">Prefrences</a> | <a href="/sign-up">Sign-Up</a></h4>
+      </div>
     <div class="container">
-  <% if signed_in? %>
+    <% if signed_in? %>
       <p><%= current_user.name %> | <a href="/signout"> Sign Out </a></p>
-      <% elsif ! @signin_page %>
+    <% elsif ! @signin_page %>
       <a href="/sign-up">Sign In</a> | <a href="/login">Login</a>
-      <%end%>    
+    <%end%>    
       
       <%=yield%>
 
       
-      <div class="footer">
-          <h4><a href="/">Home</a> | <a href="/pref">Prefrences</a>|<a href="/sign-up">Sign-Up</a></h4>
-      </div>
-      
+ 
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

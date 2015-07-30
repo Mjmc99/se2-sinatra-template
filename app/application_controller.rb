@@ -17,7 +17,6 @@ class ApplicationController < Sinatra::Base
   helpers do
     def signed_in?
       session[:user_id]
-      puts session
     end
     
     def current_user
@@ -69,10 +68,11 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
   
-  post'/pref' do
+  post '/pref' do
     @pref = Pref.create(:weather => params[:weather], :youtube => params[:youtube])
-#       session[:weather] = @pref.weather
-#       session[:youtube] = @pref.youtube
+    @weather = "weather"
+    @youtube = 
+    redirect '/'
     end
   
   post '/text' do
@@ -80,6 +80,7 @@ class ApplicationController < Sinatra::Base
     number = session[:number]
     send_sms(number)
     end
+    redirect '/'
   end
   
   
