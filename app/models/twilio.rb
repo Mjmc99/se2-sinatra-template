@@ -11,9 +11,13 @@ def send_sms(number)
   @idk = @weather.xpath("//div[3]/strong").collect {|node| node.text.strip}
 
 
-  def lol
-  @idk
-  end
+    def video
+      @items.first
+    end 
+     def temp
+       @idk
+     end
+
   
     account_sid = 'AC08bf7964c999ba6530d09fe6f0772595'
     auth_token = 'd06a7e53d00596d8af42ec90be3844c1'
@@ -22,7 +26,7 @@ def send_sms(number)
       @client.account.messages.create({
       :from => '+14803604355', 
         :to => number,
-        :body => lol ,
+        :body => "#{temp} and #{video}",
       })
   end
   

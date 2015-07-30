@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729150559) do
+ActiveRecord::Schema.define(version: 20150730162016) do
 
   create_table "prefs", force: :cascade do |t|
-    t.string "weather"
-    t.string "youtube"
+    t.string  "weather"
+    t.string  "youtube"
+    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

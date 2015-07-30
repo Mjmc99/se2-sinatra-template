@@ -17,10 +17,13 @@ class ApplicationController < Sinatra::Base
   helpers do
     def signed_in?
       session[:user_id]
+      puts session
     end
+    
     def current_user
       current_user = User.find(session[:user_id])
     end
+    
   end
   
   get '/' do
@@ -28,10 +31,11 @@ class ApplicationController < Sinatra::Base
     if @user 
       erb :index
     else
-      redirect '/sign-up'
+      redirect '/login'
     end
   end
- 
+
+
   get '/signout' do
    session[:user_id] = nil
    session[:error] = nil
@@ -42,15 +46,22 @@ class ApplicationController < Sinatra::Base
     @signin_page = true
     erb :signup
   end
-
+  
+  
   get '/login' do
     @signin_page = true
     erb :login
   end
   
-  post '/index' do
-
-  end
+  get '/pref' do
+    @user = User.find_by(:id => session[:user_id]) 
+      if @user 
+        erb :pref
+      else
+        redirect '/login'
+      end
+    end
+ 
 
   post '/sign-up' do
     @user = User.create(:name => params[:name], :number => params[:number])
@@ -58,15 +69,30 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
   
+  post'/pref' do
+    @pref = Pref.create(:weather => params[:weather], :youtube => params[:youtube])
+#       session[:weather] = @pref.weather
+#       session[:youtube] = @pref.youtube
+    end
+  
+  post '/text' do
+    if
+    number = session[:number]
+    send_sms(number)
+    end
+  end
+  
+  
   post '/login' do
     @user = User.find_by(:name => params[:name], :number => params[:number]) 
-    if @user
-      session[:user_id] = @user.id
-      redirect '/'
+      if @user
+        session[:user_id] = @user.id
+        session[:number] = @user.number.to_i
+        redirect '/'
+      else
+        redirect '/sign-up'
+      end
     end
-    redirect '/sign-up'
-  end
+
 end
-
-
 
