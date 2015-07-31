@@ -1,6 +1,5 @@
 require 'rubygems'
 # require 'twilio-ruby'
-# require_relative 'scraper.rb'
 require "nokogiri"
 require "open-uri"
 
@@ -10,11 +9,9 @@ def send_sms(number)
   @weather = Nokogiri::HTML(open("http://www.accuweather.com/en/us/cambridge-ma/02139/weather-forecast/329319"))
   @idk = @weather.xpath("//div[3]/strong").collect {|node| node.text.strip}
 
-
     def video
       @items.first
     end 
-
 
      def temp
        @idk.join(', ')
