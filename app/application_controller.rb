@@ -1,8 +1,9 @@
 require './config/environment'
-require './app/models/pref'
 require './app/models/user'
 require 'pry'
 require './app/models/twilio'
+require './app/models/weather'
+require './app/models/youtube'
 require 'twilio-ruby'
 
 class ApplicationController < Sinatra::Base
@@ -26,7 +27,8 @@ class ApplicationController < Sinatra::Base
   end
   
   get '/' do
-     @user = User.find_by(:id => session[:user_id]) 
+   
+    @user = User.find_by(:id => session[:user_id]) 
     if @user 
       erb :index
     else
@@ -51,16 +53,7 @@ class ApplicationController < Sinatra::Base
     @signin_page = true
     erb :login
   end
-  
-  get '/pref' do
-    @user = User.find_by(:id => session[:user_id]) 
-      if @user 
-        erb :pref
-      else
-        redirect '/login'
-      end
-    end
- 
+   
 
   post '/sign-up' do
     @user = User.create(:name => params[:name], :number => params[:number])
@@ -68,18 +61,21 @@ class ApplicationController < Sinatra::Base
     redirect '/'
   end
   
-  post '/pref' do
-    @pref = Pref.create(:weather => params[:weather], :youtube => params[:youtube])
-    @weather = "weather"
-    @youtube = 
-    redirect '/'
-    end
   
-  post '/text' do
-    if
+  get '/youtube' do 
+    number = session[:number]
+    send_youtube(number)
+    redirect '/'
+  end
+  
+  get '/weather' do
+    number = session[:number]
+    send_weather(number)
+    redirect '/'
+  end
+  get '/both' do
     number = session[:number]
     send_sms(number)
-    end
     redirect '/'
   end
   
@@ -94,6 +90,4 @@ class ApplicationController < Sinatra::Base
         redirect '/sign-up'
       end
     end
-
 end
-
